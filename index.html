@@ -67,12 +67,24 @@
         </button>
 
         <button id="btnStartLoad"
-                class="rounded-2xl border border-indigo-500 bg-slate-800/60 px-5 py-6 text-left hover:bg-slate-700 transition">
+                class="rounded-2xl border border-slate-700 bg-slate-800/60 px-5 py-6 text-left hover:bg-slate-700 transition">
           <h2 class="text-lg font-medium mb-2">Carica un personaggio esistente</h2>
           <p class="text-sm text-slate-300">
             Recupera una scheda salvata nel browser o da un file esportato.
           </p>
         </button>
+      </div>
+
+        <!-- Picker personaggi start screen -->
+      <div id="startCharacterPicker" class="mt-6 hidden">
+        <label for="startCharacterList"
+              class="text-xs font-medium text-slate-300 uppercase tracking-wide block mb-1">
+          Personaggi salvati nel browser
+        </label>
+        <select id="startCharacterList"
+                class="w-full sm:w-80 text-sm bg-slate-900 border border-slate-700 rounded-xl px-3 py-2">
+          <option value="">– Seleziona personaggio –</option>
+        </select>
       </div>
 
       <p id="noCharactersMsg" class="mt-6 text-sm text-amber-300 hidden">
@@ -175,7 +187,7 @@
             </div>
           </section>
 
-          <!-- Trionfi (4 textbox) -->
+          <!-- Trionfi (4 textbox + Segreto) -->
           <section>
             <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">Trionfi</h3>
             <div class="grid gap-4 md:grid-cols-4">
@@ -184,35 +196,55 @@
                   Identità
                 </label>
                 <input id="triumphIdentity" name="triumphIdentity"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="" />
+                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
+                      placeholder="La tua personalità e alcuni valori di partenza" />
               </div>
               <div class="flex flex-col gap-1">
                 <label for="triumphPresent" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
                   Presente
                 </label>
                 <input id="triumphPresent" name="triumphPresent"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="" />
+                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
+                      placeholder="Attitudini e capacità nelle sfide di ogni giorno" />
               </div>
               <div class="flex flex-col gap-1">
                 <label for="triumphPast" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
                   Passato
                 </label>
                 <input id="triumphPast" name="triumphPast"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="" />
+                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
+                      placeholder="Le prime lezione che la vita ti ha impartito" />
               </div>
               <div class="flex flex-col gap-1">
                 <label for="triumphFuture" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
                   Futuro
                 </label>
                 <input id="triumphFuture" name="triumphFuture"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="" />
+                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
+                      placeholder="Misura della magia, la sua influenza sulla tua vita" />
+              </div>
+            </div>
+
+            <!-- Riga Segreto con freccina -->
+            <div class="mt-3  pt-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                  Segreto
+                </span>
+                <button type="button" id="secretToggle"
+                        class="text-[12px] text-slate-300 hover:text-slate-100">
+                  <span id="secretIcon">▾</span>
+                </button>
+              </div>
+
+              <div id="secretPanel" class="mt-2 hidden">
+                <textarea id="triumphSecret" name="triumphSecret" rows="1"
+                          class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                          placeholder="Un difetto cruciale che tormenta l’Arcanista"></textarea>
               </div>
             </div>
           </section>
+
 
           <!-- Bloccone 3 colonne -->
           <section>
@@ -229,31 +261,35 @@
                   <div class="space-y-2">
                     <div class="flex items-center justify-between gap-2">
                       <label for="statProtection" class="text-xs text-slate-300 uppercase tracking-wide">Protezione</label>
-                      <input id="statProtection" name="statProtection" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="statProtection" name="statProtection" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            placeholder="-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
                       <label for="statOverload" class="text-xs text-slate-300 uppercase tracking-wide">Sovraccarico</label>
-                      <input id="statOverload" name="statOverload" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="statOverload" name="statOverload" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            placeholder="-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
                       <label for="statLuck" class="text-xs text-slate-300 uppercase tracking-wide">Fortuna</label>
-                      <input id="statLuck" name="statLuck" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="statLuck" name="statLuck" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            placeholder="-" />
                     </div>
                   </div>
 
-                  <!-- Vantaggi -->
                   <div class="mt-4 border-t border-slate-800 pt-3">
                     <div class="flex items-center justify-between gap-2">
                       <label for="advantages" class="text-xs text-slate-300 uppercase tracking-wide">
                         Vantaggi
                       </label>
-                      <input id="advantages" name="advantages" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="advantages" name="advantages" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            placeholder="-" />
                     </div>
                   </div>
+
                 </div>
               </div>
 
@@ -267,23 +303,27 @@
                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Corpo</span>
-                      <input id="attrBody" name="attrBody" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="attrBody" name="attrBody" type="text"
+                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1" 
+                             placeholder="-"/>
                     </div>
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Mente</span>
-                      <input id="attrMind" name="attrMind" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="attrMind" name="attrMind" type="text"
+                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1"
+                             placeholder="-" />
                     </div>
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Cuore</span>
-                      <input id="attrHeart" name="attrHeart" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="attrHeart" name="attrHeart" type="text"
+                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1"
+                             placeholder="-" />
                     </div>
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Spirito</span>
-                      <input id="attrSpirit" name="attrSpirit" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="attrSpirit" name="attrSpirit" type="text"
+                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1"
+                             placeholder="-" />
                     </div>
                   </div>
 
@@ -299,18 +339,21 @@
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Corpo</h5>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statPhysique" class="text-[11px] text-slate-300 uppercase tracking-wide">Fisico</label>
-                        <input id="statPhysique" name="statPhysique" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statPhysique" name="statPhysique" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statDexterity" class="text-[11px] text-slate-300 uppercase tracking-wide">Destrezza</label>
-                        <input id="statDexterity" name="statDexterity" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statDexterity" name="statDexterity" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statAuthority" class="text-[11px] text-slate-300 uppercase tracking-wide">Autorità</label>
-                        <input id="statAuthority" name="statAuthority" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statAuthority" name="statAuthority" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                     </div>
 
@@ -319,18 +362,21 @@
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Mente</h5>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statAnalysis" class="text-[11px] text-slate-300 uppercase tracking-wide">Analisi</label>
-                        <input id="statAnalysis" name="statAnalysis" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statAnalysis" name="statAnalysis" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statKnowledge" class="text-[11px] text-slate-300 uppercase tracking-wide">Conoscenza</label>
-                        <input id="statKnowledge" name="statKnowledge" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statKnowledge" name="statKnowledge" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statRhetoric" class="text-[11px] text-slate-300 uppercase tracking-wide">Retorica</label>
-                        <input id="statRhetoric" name="statRhetoric" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statRhetoric" name="statRhetoric" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                     </div>
 
@@ -339,18 +385,21 @@
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Cuore</h5>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statStealth" class="text-[11px] text-slate-300 uppercase tracking-wide">Sotterfugio</label>
-                        <input id="statStealth" name="statStealth" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statStealth" name="statStealth" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statSurvival" class="text-[11px] text-slate-300 uppercase tracking-wide">Survival</label>
-                        <input id="statSurvival" name="statSurvival" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statSurvival" name="statSurvival" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statInsight" class="text-[11px] text-slate-300 uppercase tracking-wide">Intuizione</label>
-                        <input id="statInsight" name="statInsight" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statInsight" name="statInsight" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                     </div>
 
@@ -359,18 +408,21 @@
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Spirito</h5>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statPower" class="text-[11px] text-slate-300 uppercase tracking-wide">Potenza</label>
-                        <input id="statPower" name="statPower" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statPower" name="statPower" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statControl" class="text-[11px] text-slate-300 uppercase tracking-wide">Controllo</label>
-                        <input id="statControl" name="statControl" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statControl" name="statControl" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
                         <label for="statPerception" class="text-[11px] text-slate-300 uppercase tracking-wide">Percezione</label>
-                        <input id="statPerception" name="statPerception" type="number" inputmode="numeric"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                        <input id="statPerception" name="statPerception" type="text"
+                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               placeholder="-/-" />
                       </div>
                     </div>
                   </div>
@@ -383,18 +435,21 @@
                   <div class="space-y-2">
                     <div class="flex items-center justify-between gap-2">
                       <label for="statVitality" class="text-xs text-slate-300 uppercase tracking-wide">Vitalità</label>
-                      <input id="statVitality" name="statVitality" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="statVitality" name="statVitality" type="text"
+                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             placeholder="-/-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
                       <label for="statStamina" class="text-xs text-slate-300 uppercase tracking-wide">Resistenza</label>
-                      <input id="statStamina" name="statStamina" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="statStamina" name="statStamina" type="text"
+                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             placeholder="-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
                       <label for="statChaos" class="text-xs text-slate-300 uppercase tracking-wide">Caos</label>
-                      <input id="statChaos" name="statChaos" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="statChaos" name="statChaos" type="text"
+                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             placeholder="-/-" />
                     </div>
                   </div>
 
@@ -402,8 +457,9 @@
                   <div class="mt-4 border-t border-slate-800 pt-3">
                     <div class="flex items-center justify-between gap-2">
                       <label for="experience" class="text-xs text-slate-300 uppercase tracking-wide">Esperienza</label>
-                      <input id="experience" name="experience" type="number" inputmode="numeric"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
+                      <input id="experience" name="experience" type="text"
+                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             placeholder="-" />
                     </div>
                   </div>
                 </div>
@@ -511,8 +567,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discAcquaGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discAcquaGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -538,8 +595,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discAriaGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discAriaGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -565,8 +623,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discFuocoGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discFuocoGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -592,8 +651,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discTerraGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discTerraGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -619,8 +679,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discLuceGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discLuceGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -651,8 +712,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discVitaGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discVitaGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -683,8 +745,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discNaturaGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discNaturaGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -715,8 +778,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discSpiritoGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discSpiritoGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -747,8 +811,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discOscuritaGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discOscuritaGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -784,8 +849,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discSpazioGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discSpazioGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -821,8 +887,9 @@
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
-                      <input id="discTempoGrade" type="number" inputmode="numeric"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" />
+                      <input id="discTempoGrade" type="text"
+                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            placeholder="-/3"/>
                     </div>
                   </div>
                 </div>
@@ -964,6 +1031,9 @@
     const characterForm = document.getElementById("characterForm");
     const characterList = document.getElementById("characterList");
     const noCharactersMsg = document.getElementById("noCharactersMsg");
+    const startCharacterPicker = document.getElementById("startCharacterPicker");
+    const startCharacterList = document.getElementById("startCharacterList");
+
 
     const btnStartNew = document.getElementById("btnStartNew");
     const btnStartLoad = document.getElementById("btnStartLoad");
@@ -1019,6 +1089,7 @@
       "triumphPresent",
       "triumphPast",
       "triumphFuture",
+      "triumphSecret",
       // --- Main Attributes ---
       "attrBody",
       "attrMind",
@@ -1151,6 +1222,21 @@
     }
 
     // -----------------------------
+    // Segreto accordion (Trionfi)
+    // -----------------------------
+    const secretToggle = document.getElementById("secretToggle");
+    const secretPanel = document.getElementById("secretPanel");
+    const secretIcon = document.getElementById("secretIcon");
+
+    if (secretToggle && secretPanel && secretIcon) {
+      secretToggle.addEventListener("click", () => {
+        const isHidden = secretPanel.classList.contains("hidden");
+        secretPanel.classList.toggle("hidden");
+        secretIcon.textContent = isHidden ? "▴" : "▾";
+      });
+    }
+
+    // -----------------------------
     // Discipline accordion
     // -----------------------------
     const disciplineTabs = document.querySelectorAll(".discipline-tab");
@@ -1193,6 +1279,7 @@
       const characters = loadAllCharacters();
       const ids = Object.keys(characters).sort();
 
+      // dropdown nella sheet screen
       characterList.innerHTML = '<option value="">– Seleziona personaggio –</option>';
 
       ids.forEach((id) => {
@@ -1202,6 +1289,18 @@
         option.textContent = name;
         characterList.appendChild(option);
       });
+
+      // dropdown nella start screen (se presente)
+      if (startCharacterList) {
+        startCharacterList.innerHTML = '<option value="">– Seleziona personaggio –</option>';
+        ids.forEach((id) => {
+          const option = document.createElement("option");
+          const name = characters[id]?.characterName || id;
+          option.value = id;
+          option.textContent = name;
+          startCharacterList.appendChild(option);
+        });
+      }
     }
 
     function loadCharacterById(id) {
@@ -1356,14 +1455,31 @@
     btnStartLoad.addEventListener("click", () => {
       const characters = loadAllCharacters();
       const hasCharacters = Object.keys(characters).length > 0;
+
       if (!hasCharacters) {
         refreshStartScreenMessage();
         alert("Nessun personaggio salvato in questo browser. Puoi importare una scheda da file.");
         handleImportClick();
       } else {
-        showSheetScreen();
+        // mostra il dropdown nella start screen
+        refreshCharacterList();
+        if (startCharacterPicker) {
+          startCharacterPicker.classList.remove("hidden");
+        }
       }
     });
+
+    if (startCharacterList) {
+      startCharacterList.addEventListener("change", () => {
+        const id = startCharacterList.value;
+        if (!id) {
+          return;
+        }
+        loadCharacterById(id);  // carica i dati nel form
+        showSheetScreen();      // passa alla schermata della scheda
+      });
+    }
+
 
     btnBackToStart.addEventListener("click", () => {
       showStartScreen();
