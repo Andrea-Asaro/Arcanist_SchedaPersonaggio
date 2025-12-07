@@ -38,12 +38,11 @@
 </head>
 
 <body class="bg-slate-900 text-slate-100 min-h-screen">
-  <div class="max-w-7xl xl:max-w-[1400px] mx-auto px-6 py-6">
+  <div class="max-w-7xl xl:max-w-[1400px] mx-auto px-3 md:px-6 py-6">
     <!-- Header app -->
     <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
       <div>
         <h1 class="text-2xl font-semibold tracking-tight">Scheda Arcanist</h1>
-        <p class="text-sm text-slate-300">Gestione personaggi GDR in locale (nessun account, nessun server).</p>
       </div>
       <div class="flex flex-wrap gap-2">
         <button id="btnExport" class="text-sm px-3 py-2 rounded-xl border border-slate-500 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed">
@@ -123,9 +122,6 @@
                 <h2 class="text-xl md:text-2xl font-semibold tracking-wide">
                   Scheda del personaggio
                 </h2>
-                <p class="text-xs text-slate-400">
-                  Compila tutti i campi per avere la tua scheda completa.
-                </p>
               </div>
               <div class="flex flex-wrap gap-3">
                 <div class="flex flex-col gap-1 min-w-[180px]">
@@ -134,7 +130,7 @@
                   </label>
                   <input id="characterName" name="characterName" required
                          class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                         placeholder="Es. Albert Crowe" />
+                         placeholder="Es. Albert De Vis" />
                 </div>
               </div>
             </div>
@@ -150,7 +146,7 @@
                 </label>
                 <input id="tramaCulture" name="tramaCulture"
                        class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="Origine culturale, ambiente..." />
+                       placeholder="Dove è nato il tuo PG?" />
               </div>
               <div class="flex flex-col gap-1">
                 <label for="tramaRole" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
@@ -158,7 +154,7 @@
                 </label>
                 <input id="tramaRole" name="tramaRole"
                        class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="Funzione nella storia, archetipo..." />
+                       placeholder="Cosa faceva prima di essere un avventuriero?" />
               </div>
               <div class="flex flex-col gap-1">
                 <label for="tramaAwakening" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
@@ -166,7 +162,7 @@
                 </label>
                 <input id="tramaAwakening" name="tramaAwakening"
                        class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="Come ha scoperto i poteri, evento chiave..." />
+                       placeholder="Quando ha risvegliato la magia?" />
               </div>
               <div class="flex flex-col gap-1">
                 <label for="tramaTraining" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
@@ -174,7 +170,7 @@
                 </label>
                 <input id="tramaTraining" name="tramaTraining"
                        class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                       placeholder="Addestramento, studi, mentori..." />
+                       placeholder="Come ha sviluppato le sue abilità?" />
               </div>
             </div>
           </section>
@@ -248,7 +244,7 @@
                     </div>
                   </div>
 
-                  <!-- Vantaggi sotto risorse, separati da lineetta -->
+                  <!-- Vantaggi -->
                   <div class="mt-4 border-t border-slate-800 pt-3">
                     <div class="flex items-center justify-between gap-2">
                       <label for="advantages" class="text-xs text-slate-300 uppercase tracking-wide">
@@ -302,8 +298,8 @@
                     <div class="space-y-1">
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Corpo</h5>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statAthletics" class="text-[11px] text-slate-300 uppercase tracking-wide">Atletica</label>
-                        <input id="statAthletics" name="statAthletics" type="number" inputmode="numeric"
+                        <label for="statPhysique" class="text-[11px] text-slate-300 uppercase tracking-wide">Fisico</label>
+                        <input id="statPhysique" name="statPhysique" type="number" inputmode="numeric"
                                class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -312,8 +308,8 @@
                                class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statCommand" class="text-[11px] text-slate-300 uppercase tracking-wide">Comando</label>
-                        <input id="statCommand" name="statCommand" type="number" inputmode="numeric"
+                        <label for="statAuthority" class="text-[11px] text-slate-300 uppercase tracking-wide">Autorità</label>
+                        <input id="statAuthority" name="statAuthority" type="number" inputmode="numeric"
                                class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
                       </div>
                     </div>
@@ -332,8 +328,8 @@
                                class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statCharm" class="text-[11px] text-slate-300 uppercase tracking-wide">Fascino</label>
-                        <input id="statCharm" name="statCharm" type="number" inputmode="numeric"
+                        <label for="statRhetoric" class="text-[11px] text-slate-300 uppercase tracking-wide">Retorica</label>
+                        <input id="statRhetoric" name="statRhetoric" type="number" inputmode="numeric"
                                class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
                       </div>
                     </div>
@@ -347,7 +343,7 @@
                                class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statSurvival" class="text-[11px] text-slate-300 uppercase tracking-wide">Sopravvivenza</label>
+                        <label for="statSurvival" class="text-[11px] text-slate-300 uppercase tracking-wide">Survival</label>
                         <input id="statSurvival" name="statSurvival" type="number" inputmode="numeric"
                                class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1" />
                       </div>
@@ -421,9 +417,9 @@
               Condizioni
             </label>
 
-            <textarea id="conditions" name="conditions" rows="2"
+            <textarea id="conditions" name="conditions" rows="1"
                       class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
-                      placeholder="Ferite, stati mentali, maledizioni..."></textarea>
+                      placeholder="Accecato, affaticato, etc..."></textarea>
           </section>
 
           <!-- Discipline -->
@@ -834,7 +830,6 @@
             </div>
           </section>
 
-
           <!-- Equipaggiamento -->
           <section>
             <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">
@@ -871,15 +866,15 @@
                 </label>
                 <textarea id="equipOther" name="equipOther" rows="4"
                           class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
-                          placeholder="- Oggetti vari, bottino, risorse..."></textarea>
+                          placeholder="- Oggetti vari, risorse..."></textarea>
               </div>
               <div class="flex flex-col gap-1 md:col-span-2">
                 <label for="equipLoot" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
                   Bottino
                 </label>
-                <textarea id="equipLoot" name="equipLoot" rows="3"
+                <textarea id="equipLoot" name="equipLoot" rows="1"
                           class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
-                          placeholder="- Tesori, premi, ricompense..."></textarea>
+                          placeholder="Valute e beni di scambio"></textarea>
               </div>
             </div>
           </section>
@@ -889,17 +884,15 @@
             <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">
               Influenze
             </h3>
-            <textarea id="influences" name="influences" rows="4"
-                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
-                      placeholder="Fazioni, contatti, patroni, debiti, favori..."></textarea>
+            <textarea id="influences" name="influences" rows="3"
+                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"></textarea>
 
             <div class="mt-3 flex flex-col gap-1 w-full">
               <label for="reputation" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
                 Reputazione
               </label>
               <input id="reputation" name="reputation"
-                     class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
-                     placeholder="Come è visto il personaggio, fama, infamia..." />
+                     class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2" />
             </div>
           </section>
 
@@ -909,8 +902,7 @@
               Arti e Poteri
             </h3>
             <textarea id="artsPowers" name="artsPowers" rows="5"
-                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
-                      placeholder="Descrivi le Arti e i Poteri del personaggio, effetti, costi, limitazioni..."></textarea>
+                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"></textarea>
           </section>
 
           <!-- Note -->
@@ -920,7 +912,7 @@
             </h3>
             <textarea id="notes" name="notes" rows="5"
                       class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
-                      placeholder="Appunti di sessione, idee future, promemoria per il Cronista..."></textarea>
+                      placeholder="Appunti di sessione, idee future..."></textarea>
           </section>
         </form>
       </div>
@@ -1033,12 +1025,12 @@
       "attrHeart",
       "attrSpirit",
       // --- Main Statistics (12) ---
-      "statAthletics",
+      "statPhysique",
       "statDexterity",
-      "statCommand",
+      "statAuthority",
       "statAnalysis",
       "statKnowledge",
-      "statCharm",
+      "statRhetoric",
       "statStealth",
       "statSurvival",
       "statInsight",
@@ -1308,7 +1300,6 @@
       a.remove();
       URL.revokeObjectURL(url);
     }
-
 
     function handleImportClick() {
       importInput.value = "";
