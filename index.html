@@ -1294,19 +1294,21 @@
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "") || "personaggio";
-
+    
+      // JSON come contenuto, ma salvato in .txt
       const payload = JSON.stringify(data, null, 2);
-      const blob = new Blob([payload], { type: "application/json;charset=utf-8" });
+      const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
       const url = URL.createObjectURL(blob);
-
+    
       const a = document.createElement("a");
       a.href = url;
-      a.download = `scheda-${nameSafe}.json`;
+      a.download = `scheda-${nameSafe}.txt`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     }
+
 
     function handleImportClick() {
       importInput.value = "";
