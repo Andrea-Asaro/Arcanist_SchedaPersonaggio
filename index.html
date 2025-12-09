@@ -385,11 +385,19 @@
       text-transform: uppercase;
       color: rgba(201, 192, 176, 0.8);
     }
+
+    /* Riduzione leggerissima solo per le 12 statistiche principali */
+    .main-stat-input {
+      width: 3.4rem;       /* = tra w-14 e w-16 → perfetto per mobile */
+      /* font-size: 0.85rem;   un hair smaller */
+      /* padding-left: 0.25rem;
+      padding-right: 0.25rem; */
+    }
   </style>
 </head>
 
 <body class="min-h-screen">
-  <div class="arcane-shell max-w-7xl xl:max-w-[1400px] mx-auto px-3 md:px-6 py-6">
+  <div class="arcane-shell max-w-7xl xl:max-w-[1500px] mx-auto px-3 md:px-6 py-6">
     <!-- Header app -->
     <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6 relative z-10">
       <div>
@@ -684,7 +692,7 @@
                           Fisico
                         </label>
                         <input id="statPhysique" name="statPhysique" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -692,7 +700,7 @@
                           Destrezza
                         </label>
                         <input id="statDexterity" name="statDexterity" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -700,7 +708,7 @@
                           Autorità
                         </label>
                         <input id="statAuthority" name="statAuthority" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
@@ -713,7 +721,7 @@
                           Analisi
                         </label>
                         <input id="statAnalysis" name="statAnalysis" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -721,7 +729,7 @@
                           Conoscenza
                         </label>
                         <input id="statKnowledge" name="statKnowledge" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -729,7 +737,7 @@
                           Retorica
                         </label>
                         <input id="statRhetoric" name="statRhetoric" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
@@ -742,7 +750,7 @@
                           Sotterfugio
                         </label>
                         <input id="statStealth" name="statStealth" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -750,7 +758,7 @@
                           Survival
                         </label>
                         <input id="statSurvival" name="statSurvival" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -758,7 +766,7 @@
                           Intuizione
                         </label>
                         <input id="statInsight" name="statInsight" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
@@ -771,7 +779,7 @@
                           Potenza
                         </label>
                         <input id="statPower" name="statPower" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -779,7 +787,7 @@
                           Controllo
                         </label>
                         <input id="statControl" name="statControl" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
@@ -787,7 +795,7 @@
                           Percezione
                         </label>
                         <input id="statPerception" name="statPerception" type="text"
-                               class="w-16 text-center"
+                               class="main-stat-input sm:!w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
