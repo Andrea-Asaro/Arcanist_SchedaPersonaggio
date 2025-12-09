@@ -5,6 +5,11 @@
   <title>Scheda Arcanist - Web App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- Google Fonts per look "tomo magico" -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -15,7 +20,7 @@
         screens: {
           sm: "640px",
           md: "768px",
-          lg: "1250px",   // <— NUOVO BREAKPOINT DESKTOP
+          lg: "1250px",   // <— BREAKPOINT DESKTOP
           xl: "1350px",
         }
       }
@@ -23,6 +28,33 @@
   </script>
 
   <style>
+    :root {
+      /* === Arcane color palette (facili da cambiare) === */
+      --arcane-bg: #050313;
+      --arcane-bg-accent: #1b102f;
+      --arcane-page: #0f1020;
+      --arcane-page-soft: #15152b;
+      --arcane-border: #d6b37a;
+      --arcane-border-soft: rgba(214, 179, 122, 0.55);
+      --arcane-accent: #f0c46a;
+      --arcane-accent-soft: rgba(240, 196, 106, 0.6);
+      --arcane-accent-secondary: #7ddcff;
+      --arcane-text-main: #f5f0e6;
+      --arcane-text-muted: #c9c0b0;
+      --arcane-rune-glow: rgba(125, 220, 255, 0.28);
+    }
+
+    /* --- Base layout: sfondo da tomo arcano, font di lettura --- */
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(148, 94, 255, 0.12), transparent 60%),
+        radial-gradient(circle at bottom, rgba(0, 200, 180, 0.16), transparent 55%),
+        radial-gradient(circle at center, var(--arcane-bg-accent), var(--arcane-bg) 60%);
+      color: var(--arcane-text-main);
+      font-family: "EB Garamond", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
     .hidden-input {
       position: absolute;
       width: 1px;
@@ -34,55 +66,375 @@
       white-space: nowrap;
       border: 0;
     }
+
+    /* --- Cornice esterna tipo tomo --- */
+    .arcane-shell {
+      position: relative;
+      border-radius: 1.75rem;
+    }
+
+    .arcane-shell::before,
+    .arcane-shell::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .arcane-shell::before {
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.9),
+        0 18px 55px rgba(0, 0, 0, 0.85);
+    }
+
+    .arcane-shell::after {
+      border: 1px solid rgba(240, 196, 106, 0.16);
+      mix-blend-mode: screen;
+    }
+
+    /* --- Pagina principale della scheda --- */
+    .arcane-page {
+      position: relative;
+      background:
+        radial-gradient(circle at top, rgba(240, 196, 106, 0.13), transparent 60%),
+        linear-gradient(135deg, rgba(12, 10, 24, 0.97), rgba(6, 7, 22, 0.98));
+      border-radius: 1.5rem;
+      border: 1px solid rgba(214, 179, 122, 0.35);
+      box-shadow:
+        0 0 0 1px rgba(2, 4, 16, 0.9),
+        0 18px 40px rgba(0, 0, 0, 0.85);
+      overflow: hidden;
+    }
+
+    .arcane-page::before {
+      content: "☿ ✶ ☉ ✶ ☽";
+      position: absolute;
+      inset-inline: 2.5rem;
+      top: 0.55rem;
+      text-align: center;
+      font-size: 0.55rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: rgba(240, 196, 106, 0.45);
+      pointer-events: none;
+    }
+
+    @media (max-width: 640px) {
+      .arcane-page::before {
+        inset-inline: 1.25rem;
+        letter-spacing: 0.35em;
+      }
+    }
+
+    /* --- Titolo libro magico --- */
+    h1 {
+      font-family: "Cinzel Decorative", "EB Garamond", serif;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--arcane-accent);
+      text-shadow: 0 0 14px rgba(240, 196, 106, 0.45);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.4rem;
+    }
+
+    h1::before,
+    h1::after {
+      content: "✶";
+      font-size: 0.8rem;
+      color: var(--arcane-accent-soft);
+      text-shadow: 0 0 10px rgba(240, 196, 106, 0.6);
+    }
+
+    .arcane-subtitle {
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--arcane-text-muted);
+    }
+
+    /* --- Sezioni (Trama, Trionfi, ecc.) con linee mistiche --- */
+    h3 {
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--arcane-text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.75rem;
+    }
+
+    h3::before,
+    h3::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(240, 196, 106, 0.45),
+        transparent
+      );
+      opacity: 0.7;
+    }
+
+    h3::before {
+      max-width: 1.75rem;
+    }
+
+    h3::after {
+      max-width: 2.5rem;
+    }
+
+    /* Mantieni testo della sezione centrato all'interno delle linee */
+    h3 span {
+      white-space: nowrap;
+    }
+
+    /* Etichette input */
+    label {
+      font-size: 0.7rem;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+      color: var(--arcane-text-muted);
+    }
+
+    /* --- Campi di input "normali" (default) --- */
+    input:not([type="checkbox"]):not([type="file"]),
+    textarea,
+    select {
+      border-radius: 0.9rem;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.04), rgba(8, 9, 22, 0.96));
+      border: 1px solid rgba(88, 105, 140, 0.9);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.85),
+        0 0 18px rgba(0, 0, 0, 0.65);
+      font-size: 0.9rem;
+      color: var(--arcane-text-main);
+      transition:
+        box-shadow 160ms ease,
+        border-color 160ms ease,
+        background 160ms ease;
+    }
+
+    input:not([type="checkbox"]):not([type="file"]) {
+      padding: 0.45rem 0.7rem;
+    }
+
+    textarea {
+      padding: 0.5rem 0.75rem;
+    }
+
+    select {
+      padding: 0.45rem 0.7rem;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.04), rgba(8, 9, 22, 0.96));
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(201, 192, 176, 0.6);
+    }
+
+    /* focus generico per tutti gli input "normali",
+      orb e gem ereditano questo */
+    input:not([type="checkbox"]):not([type="file"]):focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: none;
+      box-shadow:
+        0 0 0 1px rgba(8, 14, 40, 1),
+        0 0 0 2px var(--arcane-accent-secondary),
+        0 0 20px rgba(125, 220, 255, 0.45);
+      border-color: var(--arcane-accent-secondary);
+    }
+
+    /* --- Checkbox con runa luminosa --- */
+    input[type="checkbox"] {
+      width: 1rem;
+      height: 1rem;
+      border-radius: 0.4rem;
+      border: 1px solid rgba(125, 220, 255, 0.55);
+      background: radial-gradient(circle at center, rgba(125, 220, 255, 0.2), rgba(4, 8, 26, 1));
+      accent-color: var(--arcane-accent-secondary);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.85),
+        0 0 12px rgba(0, 0, 0, 0.7);
+    }
+
+    input[type="checkbox"]:checked {
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.9),
+        0 0 14px rgba(125, 220, 255, 0.85);
+    }
+
+    /* --- Pulsanti: stile generale + varianti primarie --- */
+    button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      border: 1px solid rgba(106, 120, 167, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.08), rgba(10, 12, 30, 0.96));
+      color: var(--arcane-text-main);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.9),
+        0 10px 25px rgba(0, 0, 0, 0.8);
+      transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        transform 120ms ease,
+        box-shadow 150ms ease,
+        color 150ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.9),
+        0 16px 30px rgba(0, 0, 0, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.12), rgba(12, 14, 34, 0.98));
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.7),
+        0 6px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Pulsanti principali (oro) */
+    #btnSave,
+    #btnSaveBottom,
+    #btnImport {
+      border-color: var(--arcane-accent);
+      background:
+        linear-gradient(135deg, rgba(240, 196, 106, 0.15), rgba(240, 196, 106, 0.02)),
+        radial-gradient(circle at bottom, rgba(240, 196, 106, 0.95), rgba(96, 62, 14, 0.9));
+      color: #160f05;
+      text-shadow: 0 0 10px rgba(64, 30, 4, 0.6);
+    }
+
+    #btnSave:hover,
+    #btnSaveBottom:hover,
+    #btnImport:hover {
+      background:
+        linear-gradient(135deg, rgba(240, 196, 106, 0.24), rgba(240, 196, 106, 0.08)),
+        radial-gradient(circle at bottom, rgba(252, 215, 142, 0.98), rgba(102, 60, 4, 0.95));
+    }
+
+    /* Tab Discipline un po' più "pillola magica" */
+    .discipline-tab {
+      border-radius: 999px;
+      border-color: rgba(125, 220, 255, 0.55);
+      background:
+        radial-gradient(circle at top, rgba(125, 220, 255, 0.12), rgba(4, 8, 26, 0.96));
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.85),
+        0 8px 18px rgba(0, 0, 0, 0.8);
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+    }
+
+    .discipline-tab:hover {
+      border-color: rgba(125, 220, 255, 0.9);
+      background:
+        radial-gradient(circle at top, rgba(125, 220, 255, 0.18), rgba(6, 10, 30, 0.98));
+    }
+
+    /* --- Stat principali: input speciali a forma di "orb" --- */
+    .stat-orb {
+      width: 3.1rem;
+      text-align: center;
+      border-radius: 999px;
+      padding: 0.28rem 0.4rem;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.18), transparent 55%),
+        radial-gradient(circle at bottom, rgba(125, 220, 255, 0.3), rgba(6, 8, 24, 1));
+      border: 1px solid rgba(234, 200, 140, 0.85);
+      box-shadow:
+        0 0 0 1px rgba(8, 10, 30, 0.9),
+        0 0 18px rgba(171, 227, 255, 0.4);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      color: var(--arcane-text-main);
+    }
+
+    .stat-orb::placeholder {
+      color: rgba(242, 232, 210, 0.6);
+    }
+
+    /* Nota nella toolbar superiore */
+    .arcane-toolbar-note {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(201, 192, 176, 0.8);
+    }
   </style>
 </head>
 
-<body class="bg-slate-900 text-slate-100 min-h-screen">
-  <div class="max-w-7xl xl:max-w-[1400px] mx-auto px-3 md:px-6 py-6">
+<body class="min-h-screen">
+  <div class="arcane-shell max-w-7xl xl:max-w-[1400px] mx-auto px-3 md:px-6 py-6">
     <!-- Header app -->
-    <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
+    <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6 relative z-10">
       <div>
-        <h1 class="text-2xl font-semibold tracking-tight">Scheda Arcanist</h1>
+        <p class="arcane-subtitle mb-1">Compendio degli Arcanisti</p>
+        <h1>Scheda Arcanist</h1>
       </div>
       <div class="flex flex-wrap gap-2">
-        <button id="btnExport" class="text-sm px-3 py-2 rounded-xl border border-slate-500 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed">
-          Esporta scheda
+        <button id="btnExport" class="text-xs sm:text-sm disabled:cursor-not-allowed">
+          <span>Esporta scheda</span>
         </button>
-        <button id="btnImport" class="text-sm px-3 py-2 rounded-xl border border-indigo-500 hover:bg-indigo-600 hover:border-indigo-400 bg-indigo-500">
-          Importa scheda
+        <button id="btnImport" class="text-xs sm:text-sm">
+          <span>Importa scheda</span>
         </button>
         <input type="file" id="importInput" accept=".json,.txt,application/json,text/plain" class="hidden-input" />
       </div>
     </header>
 
     <!-- Start screen -->
-    <section id="startScreen" class="mt-10">
+    <section id="startScreen" class="mt-10 relative z-10">
       <div class="grid gap-6 sm:grid-cols-2">
-        <button id="btnStartNew"
-                class="rounded-2xl border border-slate-700 bg-slate-800/60 px-5 py-6 text-left hover:bg-slate-700 transition">
-          <h2 class="text-lg font-medium mb-2">Crea un nuovo personaggio</h2>
-          <p class="text-sm text-slate-300">
-            Apri una nuova scheda vuota e inizia a compilarla.
-          </p>
+        <button id="btnStartNew" class="px-5 py-6 text-left">
+          <div class="flex flex-col gap-2">
+            <p class="text-base">Crea un nuovo personaggio</p>
+            <p class="text-sm text-slate-300">
+              Inizia da zero.
+            </p>
+          </div>
         </button>
 
-        <button id="btnStartLoad"
-                class="rounded-2xl border border-slate-700 bg-slate-800/60 px-5 py-6 text-left hover:bg-slate-700 transition">
-          <h2 class="text-lg font-medium mb-2">Carica un personaggio esistente</h2>
-          <p class="text-sm text-slate-300">
-            Recupera una scheda salvata nel browser o da un file esportato.
-          </p>
+        <button id="btnStartLoad" class="px-5 py-6 text-left">
+          <div class="flex flex-col gap-2">
+            <p class="text-base">Carica un personaggio esistente</p>
+            <p class="text-sm text-slate-300">
+              Carica da file o da browser.
+            </p>
+          </div>
         </button>
       </div>
 
-        <!-- Picker personaggi start screen -->
+      <!-- Picker personaggi start screen -->
       <div id="startCharacterPicker" class="mt-6 hidden">
-        <label for="startCharacterList"
-              class="text-xs font-medium text-slate-300 uppercase tracking-wide block mb-1">
+        <label for="startCharacterList" class="block mb-1">
           Personaggi salvati nel browser
         </label>
-        <select id="startCharacterList"
-                class="w-full sm:w-80 text-sm bg-slate-900 border border-slate-700 rounded-xl px-3 py-2">
+        <select id="startCharacterList" class="w-full sm:w-80 text-sm">
           <option value="">– Seleziona personaggio –</option>
         </select>
       </div>
@@ -93,55 +445,51 @@
     </section>
 
     <!-- Sheet screen -->
-    <section id="sheetScreen" class="hidden">
+    <section id="sheetScreen" class="hidden relative z-10">
       <!-- Top toolbar -->
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 mt-8">
         <div class="flex flex-wrap items-center gap-2">
-          <button id="btnBackToStart"
-                  class="text-xs px-3 py-1 rounded-full border border-slate-600 hover:bg-slate-800">
+          <button id="btnBackToStart" class="text-[0.7rem] px-3 py-1">
             ← Torna alla scelta iniziale
           </button>
-          <span class="text-xs text-slate-400">I dati sono salvati solo in questo browser.</span>
+          <span class="arcane-toolbar-note">
+            I dati sono salvati solo in questo browser.
+          </span>
         </div>
 
         <div class="flex flex-wrap gap-2 items-center">
-          <select id="characterList"
-                  class="text-sm bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 min-w-[180px]">
+          <select id="characterList" class="text-sm min-w-[180px]">
             <option value="">– Seleziona personaggio –</option>
           </select>
-          <button id="btnLoadSelected"
-                  class="text-sm px-3 py-2 rounded-xl border border-slate-600 hover:bg-slate-800">
+          <button id="btnLoadSelected" class="text-xs sm:text-sm">
             Carica selezionato
           </button>
-          <button id="btnNew"
-                  class="text-sm px-3 py-2 rounded-xl border border-slate-600 hover:bg-slate-800">
+          <button id="btnNew" class="text-xs sm:text-sm">
             Nuova scheda
           </button>
-          <button id="btnSave"
-                  class="text-sm px-3 py-2 rounded-xl border border-emerald-500 bg-emerald-500/90 hover:bg-emerald-500">
+          <button id="btnSave" class="text-xs sm:text-sm">
             Salva scheda
           </button>
         </div>
       </div>
 
       <!-- Card container -->
-      <div class="bg-slate-950/80 border border-slate-800 rounded-2xl shadow-lg shadow-slate-950/40 p-5 mb-6">
+      <div class="arcane-page p-5 md:p-7 mb-6 mt-4">
         <form id="characterForm" class="space-y-6">
           <!-- Titolo scheda -->
-          <section class="border-b border-slate-800 pb-4">
+          <section class="border-b border-slate-800/60 pb-4">
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
               <div>
-                <h2 class="text-xl md:text-2xl font-semibold tracking-wide">
+                <h2 class="text-base md:text-lg tracking-[0.22em] uppercase text-[var(--arcane-text-muted)]">
                   Scheda del personaggio
                 </h2>
               </div>
               <div class="flex flex-wrap gap-3">
                 <div class="flex flex-col gap-1 min-w-[180px]">
-                  <label for="characterName" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                  <label for="characterName" class="block mb-1">
                     Nome personaggio *
                   </label>
                   <input id="characterName" name="characterName" required
-                         class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                          placeholder="Es. Albert De Vis" />
                 </div>
               </div>
@@ -150,38 +498,34 @@
 
           <!-- Trama (4 campi) -->
           <section>
-            <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">Trama</h3>
+            <h3><span>Trama</span></h3>
             <div class="grid gap-4 md:grid-cols-4">
               <div class="flex flex-col gap-1">
-                <label for="tramaCulture" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="tramaCulture" class="mb-1">
                   Cultura
                 </label>
                 <input id="tramaCulture" name="tramaCulture"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                        placeholder="Dove è nato il tuo PG?" />
               </div>
               <div class="flex flex-col gap-1">
-                <label for="tramaRole" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="tramaRole" class="mb-1">
                   Ruolo
                 </label>
                 <input id="tramaRole" name="tramaRole"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                        placeholder="Cosa faceva prima di essere un avventuriero?" />
               </div>
               <div class="flex flex-col gap-1">
-                <label for="tramaAwakening" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="tramaAwakening" class="mb-1">
                   Risveglio
                 </label>
                 <input id="tramaAwakening" name="tramaAwakening"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                        placeholder="Quando ha risvegliato la magia?" />
               </div>
               <div class="flex flex-col gap-1">
-                <label for="tramaTraining" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="tramaTraining" class="mb-1">
                   Formazione
                 </label>
                 <input id="tramaTraining" name="tramaTraining"
-                       class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                        placeholder="Come ha sviluppato le sue abilità?" />
               </div>
             </div>
@@ -189,103 +533,101 @@
 
           <!-- Trionfi (4 textbox + Segreto) -->
           <section>
-            <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">Trionfi</h3>
+            <h3><span>Trionfi</span></h3>
             <div class="grid gap-4 md:grid-cols-4">
               <div class="flex flex-col gap-1">
-                <label for="triumphIdentity" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="triumphIdentity" class="mb-1">
                   Identità
                 </label>
                 <input id="triumphIdentity" name="triumphIdentity"
-                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                       placeholder="La tua personalità e alcuni valori di partenza" />
               </div>
               <div class="flex flex-col gap-1">
-                <label for="triumphPresent" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="triumphPresent" class="mb-1">
                   Presente
                 </label>
                 <input id="triumphPresent" name="triumphPresent"
-                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                       placeholder="Attitudini e capacità nelle sfide di ogni giorno" />
               </div>
               <div class="flex flex-col gap-1">
-                <label for="triumphPast" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="triumphPast" class="mb-1">
                   Passato
                 </label>
                 <input id="triumphPast" name="triumphPast"
-                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                       placeholder="Le prime lezione che la vita ti ha impartito" />
               </div>
               <div class="flex flex-col gap-1">
-                <label for="triumphFuture" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="triumphFuture" class="mb-1">
                   Futuro
                 </label>
                 <input id="triumphFuture" name="triumphFuture"
-                      class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2"
                       placeholder="Misura della magia, la sua influenza sulla tua vita" />
               </div>
             </div>
 
             <!-- Riga Segreto con freccina -->
-            <div class="mt-3  pt-3">
+            <div class="mt-3 pt-3 border-t border-slate-800/60">
               <div class="flex items-center justify-between gap-2">
-                <span class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <span class="text-xs tracking-[0.2em] uppercase text-[var(--arcane-text-muted)]">
                   Segreto
                 </span>
-                <button type="button" id="secretToggle"
-                        class="text-[12px] text-slate-300 hover:text-slate-100">
+                <button type="button" id="secretToggle" class="px-2 py-1 text-[11px]">
                   <span id="secretIcon">▾</span>
                 </button>
               </div>
 
               <div id="secretPanel" class="mt-2 hidden">
                 <textarea id="triumphSecret" name="triumphSecret" rows="1"
-                          class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                          class="w-full resize-y"
                           placeholder="Un difetto cruciale che tormenta l’Arcanista"></textarea>
               </div>
             </div>
           </section>
 
-
           <!-- Bloccone 3 colonne -->
           <section>
             <!-- titolo sezione solo mobile -->
-            <h3 class="text-sm font-semibold text-slate-200 mb-3 tracking-wide uppercase">
-              Attributi &amp; Statistiche
-            </h3>
+            <h3 class="lg:hidden"><span>Attributi &amp; Statistiche</span></h3>
 
             <!-- NUOVO LAYOUT: grid responsiva -->
             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-[1fr_4fr_1fr] xl:grid-cols-[1fr_3fr_1fr]">
               <!-- Colonna sinistra: Protezione / Sovraccarico / Fortuna + Vantaggi -->
               <div class="space-y-3 order-2 md:order-2 lg:order-1 lg:col-span-1 lg:col-start-1">
-                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3">
+                <div class="rounded-2xl border border-slate-800/70 bg-slate-900/40 p-3">
                   <div class="space-y-2">
                     <div class="flex items-center justify-between gap-2">
-                      <label for="statProtection" class="text-xs text-slate-300 uppercase tracking-wide">Protezione</label>
+                      <label for="statProtection">
+                        Protezione
+                      </label>
                       <input id="statProtection" name="statProtection" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            class="w-16 text-center"
                             placeholder="-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
-                      <label for="statOverload" class="text-xs text-slate-300 uppercase tracking-wide">Sovraccarico</label>
+                      <label for="statOverload">
+                        Sovraccarico
+                      </label>
                       <input id="statOverload" name="statOverload" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            class="w-16 text-center"
                             placeholder="-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
-                      <label for="statLuck" class="text-xs text-slate-300 uppercase tracking-wide">Fortuna</label>
+                      <label for="statLuck">
+                        Fortuna
+                      </label>
                       <input id="statLuck" name="statLuck" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            class="w-16 text-center"
                             placeholder="-" />
                     </div>
                   </div>
 
-                  <div class="mt-4 border-t border-slate-800 pt-3">
+                  <div class="mt-4 border-t border-slate-800/70 pt-3">
                     <div class="flex items-center justify-between gap-2">
-                      <label for="advantages" class="text-xs text-slate-300 uppercase tracking-wide">
+                      <label for="advantages">
                         Vantaggi
                       </label>
                       <input id="advantages" name="advantages" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                            class="w-16 text-center"
                             placeholder="-" />
                     </div>
                   </div>
@@ -295,40 +637,40 @@
 
               <!-- Colonna centrale: 4 attributi + 12 stat -->
               <div class="space-y-3 order-1 md:order-1 lg:order-2 md:col-span-2 lg:col-span-1 lg:col-start-2">
-                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3">
+                <div class="rounded-2xl border border-slate-800/70 bg-slate-900/40 p-3">
                   <!-- titolo attributi/statistiche solo mobile -->
-                  <h4 class="text-xs font-semibold uppercase tracking-wide text-slate-300 mb-3 lg:hidden">
+                  <h4 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--arcane-text-muted)] mb-3 lg:hidden">
                     Attributi principali
                   </h4>
                   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Corpo</span>
                       <input id="attrBody" name="attrBody" type="text"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1" 
-                             placeholder="-"/>
+                             class="stat-orb"
+                             placeholder="-" />
                     </div>
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Mente</span>
                       <input id="attrMind" name="attrMind" type="text"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1"
+                             class="stat-orb"
                              placeholder="-" />
                     </div>
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Cuore</span>
                       <input id="attrHeart" name="attrHeart" type="text"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1"
+                             class="stat-orb"
                              placeholder="-" />
                     </div>
                     <div class="flex flex-col items-center gap-1">
                       <span class="text-[11px] uppercase tracking-wide text-slate-300">Spirito</span>
                       <input id="attrSpirit" name="attrSpirit" type="text"
-                             class="w-16 text-center text-sm rounded-full bg-slate-950 border border-slate-700 px-2 py-1"
+                             class="stat-orb"
                              placeholder="-" />
                     </div>
                   </div>
 
                   <!-- titolo statistiche solo mobile -->
-                  <h4 class="text-xs font-semibold uppercase tracking-wide text-slate-300 mb-2 lg:hidden">
+                  <h4 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[var(--arcane-text-muted)] mb-2 lg:hidden">
                     Statistiche
                   </h4>
 
@@ -338,21 +680,27 @@
                     <div class="space-y-1">
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Corpo</h5>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statPhysique" class="text-[11px] text-slate-300 uppercase tracking-wide">Fisico</label>
+                        <label for="statPhysique">
+                          Fisico
+                        </label>
                         <input id="statPhysique" name="statPhysique" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statDexterity" class="text-[11px] text-slate-300 uppercase tracking-wide">Destrezza</label>
+                        <label for="statDexterity">
+                          Destrezza
+                        </label>
                         <input id="statDexterity" name="statDexterity" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statAuthority" class="text-[11px] text-slate-300 uppercase tracking-wide">Autorità</label>
+                        <label for="statAuthority">
+                          Autorità
+                        </label>
                         <input id="statAuthority" name="statAuthority" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
@@ -361,21 +709,27 @@
                     <div class="space-y-1 border-l border-slate-800 pl-3">
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Mente</h5>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statAnalysis" class="text-[11px] text-slate-300 uppercase tracking-wide">Analisi</label>
+                        <label for="statAnalysis">
+                          Analisi
+                        </label>
                         <input id="statAnalysis" name="statAnalysis" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statKnowledge" class="text-[11px] text-slate-300 uppercase tracking-wide">Conoscenza</label>
+                        <label for="statKnowledge">
+                          Conoscenza
+                        </label>
                         <input id="statKnowledge" name="statKnowledge" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statRhetoric" class="text-[11px] text-slate-300 uppercase tracking-wide">Retorica</label>
+                        <label for="statRhetoric">
+                          Retorica
+                        </label>
                         <input id="statRhetoric" name="statRhetoric" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
@@ -384,21 +738,27 @@
                     <div class="space-y-1 md:border-l md:border-slate-800 md:pl-3">
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Cuore</h5>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statStealth" class="text-[11px] text-slate-300 uppercase tracking-wide">Sotterfugio</label>
+                        <label for="statStealth">
+                          Sotterfugio
+                        </label>
                         <input id="statStealth" name="statStealth" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statSurvival" class="text-[11px] text-slate-300 uppercase tracking-wide">Survival</label>
+                        <label for="statSurvival">
+                          Survival
+                        </label>
                         <input id="statSurvival" name="statSurvival" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statInsight" class="text-[11px] text-slate-300 uppercase tracking-wide">Intuizione</label>
+                        <label for="statInsight">
+                          Intuizione
+                        </label>
                         <input id="statInsight" name="statInsight" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
@@ -407,21 +767,27 @@
                     <div class="space-y-1 border-l border-slate-800 pl-3">
                       <h5 class="text-[11px] uppercase tracking-wide text-slate-400 text-center md:text-left md:hidden">Spirito</h5>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statPower" class="text-[11px] text-slate-300 uppercase tracking-wide">Potenza</label>
+                        <label for="statPower">
+                          Potenza
+                        </label>
                         <input id="statPower" name="statPower" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statControl" class="text-[11px] text-slate-300 uppercase tracking-wide">Controllo</label>
+                        <label for="statControl">
+                          Controllo
+                        </label>
                         <input id="statControl" name="statControl" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                       <div class="flex items-center justify-between gap-2">
-                        <label for="statPerception" class="text-[11px] text-slate-300 uppercase tracking-wide">Percezione</label>
+                        <label for="statPerception">
+                          Percezione
+                        </label>
                         <input id="statPerception" name="statPerception" type="text"
-                               class="w-14 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                               class="w-16 text-center"
                                placeholder="-/-" />
                       </div>
                     </div>
@@ -431,34 +797,42 @@
 
               <!-- Colonna destra: Vitalità / Resistenza / Caos + Esperienza -->
               <div class="space-y-3 order-3 md:order-3 lg:order-3 lg:col-span-1 lg:col-start-3">
-                <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-3">
+                <div class="rounded-2xl border border-slate-800/70 bg-slate-900/40 p-3">
                   <div class="space-y-2">
                     <div class="flex items-center justify-between gap-2">
-                      <label for="statVitality" class="text-xs text-slate-300 uppercase tracking-wide">Vitalità</label>
+                      <label for="statVitality">
+                        Vitalità
+                      </label>
                       <input id="statVitality" name="statVitality" type="text"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             class="w-16 text-center"
                              placeholder="-/-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
-                      <label for="statStamina" class="text-xs text-slate-300 uppercase tracking-wide">Resistenza</label>
+                      <label for="statStamina">
+                        Resistenza
+                      </label>
                       <input id="statStamina" name="statStamina" type="text"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             class="w-16 text-center"
                              placeholder="-" />
                     </div>
                     <div class="flex items-center justify-between gap-2">
-                      <label for="statChaos" class="text-xs text-slate-300 uppercase tracking-wide">Caos</label>
+                      <label for="statChaos">
+                        Caos
+                      </label>
                       <input id="statChaos" name="statChaos" type="text"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             class="w-16 text-center"
                              placeholder="-/-" />
                     </div>
                   </div>
 
                   <!-- Esperienza -->
-                  <div class="mt-4 border-t border-slate-800 pt-3">
+                  <div class="mt-4 border-t border-slate-800/70 pt-3">
                     <div class="flex items-center justify-between gap-2">
-                      <label for="experience" class="text-xs text-slate-300 uppercase tracking-wide">Esperienza</label>
+                      <label for="experience">
+                        Esperienza
+                      </label>
                       <input id="experience" name="experience" type="text"
-                             class="w-16 text-center text-sm rounded-lg bg-slate-950 border border-slate-700 px-2 py-1"
+                             class="w-16 text-center"
                              placeholder="-" />
                     </div>
                   </div>
@@ -469,76 +843,72 @@
 
           <!-- Condizioni -->
           <section>
-            <label for="conditions" class="text-xs font-medium text-slate-300 uppercase tracking-wide block mb-1">
-              Condizioni
-            </label>
+            <h3><span>Condizioni</span></h3>
 
             <textarea id="conditions" name="conditions" rows="1"
-                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                      class="w-full resize-y"
                       placeholder="Accecato, affaticato, etc..."></textarea>
           </section>
 
           <!-- Discipline -->
           <section>
-            <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">
-              Discipline
-            </h3>
+            <h3><span>Discipline</span></h3>
 
-            <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 space-y-4">
+            <div class="rounded-2xl border border-slate-800/70 bg-slate-900/40 p-4 space-y-4">
               <!-- Nomi discipline orizzontali -->
               <div class="flex flex-wrap gap-2">
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-acqua-panel">
                   Acqua
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-aria-panel">
                   Aria
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-fuoco-panel">
                   Fuoco
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-terra-panel">
                   Terra
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-luce-panel">
                   Luce
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-vita-panel">
                   Vita
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-natura-panel">
                   Natura
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-spirito-panel">
                   Spirito
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-oscurita-panel">
                   Oscurità
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-spazio-panel">
                   Spazio
                 </button>
                 <button type="button"
-                        class="discipline-tab text-xs sm:text-sm px-3 py-1.5 rounded-full border border-slate-600 bg-slate-950/60 hover:bg-slate-800 transition"
+                        class="discipline-tab text-[0.7rem] sm:text-xs px-3 py-1.5"
                         data-discipline-target="disc-tempo-panel">
                   Tempo
                 </button>
@@ -548,27 +918,24 @@
               <div class="space-y-3">
                 <!-- Acqua (2 lezioni) -->
                 <div id="disc-acqua-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     ACQUA
                   </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discAcquaLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discAcquaLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discAcquaLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discAcquaLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discAcquaGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -576,27 +943,24 @@
 
                 <!-- Aria (2 lezioni) -->
                 <div id="disc-aria-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     ARIA
                   </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discAriaLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discAriaLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discAriaLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discAriaLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discAriaGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -604,27 +968,24 @@
 
                 <!-- Fuoco (2 lezioni) -->
                 <div id="disc-fuoco-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     FUOCO
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discFuocoLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discFuocoLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discFuocoLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discFuocoLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discFuocoGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -632,27 +993,24 @@
 
                 <!-- Terra (2 lezioni) -->
                 <div id="disc-terra-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     TERRA
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discTerraLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discTerraLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discTerraLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discTerraLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discTerraGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -660,27 +1018,24 @@
 
                 <!-- Luce (2 lezioni) -->
                 <div id="disc-luce-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     LUCE
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discLuceLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discLuceLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discLuceLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discLuceLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discLuceGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -688,32 +1043,28 @@
 
                 <!-- Vita (3 lezioni) -->
                 <div id="disc-vita-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     VITA
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discVitaLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discVitaLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discVitaLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discVitaLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discVitaLesson3" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discVitaLesson3" type="checkbox">
                         <span>Lezione 3</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discVitaGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -721,32 +1072,28 @@
 
                 <!-- Natura (3 lezioni) -->
                 <div id="disc-natura-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     NATURA
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discNaturaLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discNaturaLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discNaturaLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discNaturaLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discNaturaLesson3" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discNaturaLesson3" type="checkbox">
                         <span>Lezione 3</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discNaturaGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -754,32 +1101,28 @@
 
                 <!-- Spirito (3 lezioni) -->
                 <div id="disc-spirito-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     SPIRITO
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discSpiritoLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discSpiritoLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discSpiritoLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discSpiritoLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discSpiritoLesson3" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discSpiritoLesson3" type="checkbox">
                         <span>Lezione 3</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discSpiritoGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -787,32 +1130,28 @@
 
                 <!-- Oscurità (3 lezioni) -->
                 <div id="disc-oscurita-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     OSCURITÀ
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discOscuritaLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discOscuritaLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discOscuritaLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discOscuritaLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discOscuritaLesson3" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discOscuritaLesson3" type="checkbox">
                         <span>Lezione 3</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discOscuritaGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -820,37 +1159,32 @@
 
                 <!-- Spazio (4 lezioni) -->
                 <div id="disc-spazio-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     SPAZIO
-                  </h4>              
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discSpazioLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discSpazioLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discSpazioLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discSpazioLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discSpazioLesson3" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discSpazioLesson3" type="checkbox">
                         <span>Lezione 3</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discSpazioLesson4" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discSpazioLesson4" type="checkbox">
                         <span>Lezione 4</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discSpazioGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -858,37 +1192,32 @@
 
                 <!-- Tempo (4 lezioni) -->
                 <div id="disc-tempo-panel" data-discipline-panel class="hidden rounded-xl border border-slate-700 bg-slate-950/70 p-3">
-                  <!-- Title of the opened discipline -->
                   <h4 class="text-[11px] uppercase tracking-wide text-slate-300 mb-2 text-center">
                     TEMPO
-                  </h4>                
+                  </h4>
                   <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div class="flex flex-wrap gap-2">
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discTempoLesson1" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discTempoLesson1" type="checkbox">
                         <span>Lezione 1</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discTempoLesson2" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discTempoLesson2" type="checkbox">
                         <span>Lezione 2</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discTempoLesson3" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discTempoLesson3" type="checkbox">
                         <span>Lezione 3</span>
                       </label>
                       <label class="inline-flex items-center gap-1 text-xs text-slate-300">
-                        <input id="discTempoLesson4" type="checkbox"
-                              class="w-4 h-4 rounded border-slate-500 bg-slate-950">
+                        <input id="discTempoLesson4" type="checkbox">
                         <span>Lezione 4</span>
                       </label>
                     </div>
                     <div class="flex items-center gap-2">
                       <span class="text-xs uppercase tracking-wide text-slate-300">Grado</span>
                       <input id="discTempoGrade" type="text"
-                            class="w-16 text-center text-sm rounded-lg bg-slate-900 border border-slate-700 px-2 py-1" 
+                            class="w-16 text-center"
                             placeholder="-/3"/>
                     </div>
                   </div>
@@ -899,48 +1228,46 @@
 
           <!-- Equipaggiamento -->
           <section>
-            <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">
-              Equipaggiamento
-            </h3>
+            <h3><span>Equipaggiamento</span></h3>
             <div class="grid gap-4 md:grid-cols-2">
               <div class="flex flex-col gap-1">
-                <label for="equipWeaponsSpells" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="equipWeaponsSpells" class="mb-1">
                   Armi e Incantesimi
                 </label>
                 <textarea id="equipWeaponsSpells" name="equipWeaponsSpells" rows="4"
-                          class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                          class="resize-y"
                           placeholder="- Arma / incantesimo&#10;- Danno / effetto&#10;- Note..."></textarea>
               </div>
               <div class="flex flex-col gap-1">
-                <label for="equipAccessories" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="equipAccessories" class="mb-1">
                   Accessori
                 </label>
                 <textarea id="equipAccessories" name="equipAccessories" rows="4"
-                          class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                          class="resize-y"
                           placeholder="- Anelli, amuleti, talismani&#10;- Effetti passivi..."></textarea>
               </div>
               <div class="flex flex-col gap-1">
-                <label for="equipTools" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="equipTools" class="mb-1">
                   Strumenti
                 </label>
                 <textarea id="equipTools" name="equipTools" rows="4"
-                          class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                          class="resize-y"
                           placeholder="- Kit, attrezzi, focus rituali..."></textarea>
               </div>
               <div class="flex flex-col gap-1">
-                <label for="equipOther" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="equipOther" class="mb-1">
                   Altro Equipaggiamento
                 </label>
                 <textarea id="equipOther" name="equipOther" rows="4"
-                          class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                          class="resize-y"
                           placeholder="- Oggetti vari, risorse..."></textarea>
               </div>
               <div class="flex flex-col gap-1 md:col-span-2">
-                <label for="equipLoot" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+                <label for="equipLoot" class="mb-1">
                   Bottino
                 </label>
                 <textarea id="equipLoot" name="equipLoot" rows="1"
-                          class="text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                          class="resize-y"
                           placeholder="Valute e beni di scambio"></textarea>
               </div>
             </div>
@@ -948,37 +1275,30 @@
 
           <!-- Influenze -->
           <section>
-            <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">
-              Influenze
-            </h3>
+            <h3><span>Influenze</span></h3>
             <textarea id="influences" name="influences" rows="3"
-                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"></textarea>
+                      class="w-full resize-y"></textarea>
 
             <div class="mt-3 flex flex-col gap-1 w-full">
-              <label for="reputation" class="text-xs font-medium text-slate-300 uppercase tracking-wide">
+              <label for="reputation" class="mb-1">
                 Reputazione
               </label>
-              <input id="reputation" name="reputation"
-                     class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2" />
+              <input id="reputation" name="reputation" class="w-full" />
             </div>
           </section>
 
           <!-- Arti e Poteri -->
           <section>
-            <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">
-              Arti e Poteri
-            </h3>
+            <h3><span>Arti e Poteri</span></h3>
             <textarea id="artsPowers" name="artsPowers" rows="5"
-                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"></textarea>
+                      class="w-full resize-y"></textarea>
           </section>
 
           <!-- Note -->
           <section>
-            <h3 class="text-sm font-semibold text-slate-200 mb-2 tracking-wide uppercase">
-              Note
-            </h3>
+            <h3><span>Note</span></h3>
             <textarea id="notes" name="notes" rows="5"
-                      class="w-full text-sm rounded-xl bg-slate-900 border border-slate-700 px-3 py-2 resize-y"
+                      class="w-full resize-y"
                       placeholder="Appunti di sessione, idee future..."></textarea>
           </section>
         </form>
@@ -986,12 +1306,10 @@
 
       <!-- Bottom action bar -->
       <div class="flex flex-wrap gap-2 justify-end">
-        <button id="btnNewBottom"
-                class="text-sm px-3 py-2 rounded-xl border border-slate-600 hover:bg-slate-800">
+        <button id="btnNewBottom" class="text-xs sm:text-sm">
           Crea nuova scheda
         </button>
-        <button id="btnSaveBottom"
-                class="text-sm px-3 py-2 rounded-xl border border-emerald-500 bg-emerald-500/90 hover:bg-emerald-500">
+        <button id="btnSaveBottom" class="text-xs sm:text-sm">
           Salva scheda
         </button>
       </div>
@@ -1033,7 +1351,6 @@
     const noCharactersMsg = document.getElementById("noCharactersMsg");
     const startCharacterPicker = document.getElementById("startCharacterPicker");
     const startCharacterList = document.getElementById("startCharacterList");
-
 
     const btnStartNew = document.getElementById("btnStartNew");
     const btnStartLoad = document.getElementById("btnStartLoad");
@@ -1275,32 +1592,24 @@
         .slice(0, 60) || null;
     }
 
-    function refreshCharacterList() {
-      const characters = loadAllCharacters();
-      const ids = Object.keys(characters).sort();
-
-      // dropdown nella sheet screen
-      characterList.innerHTML = '<option value="">– Seleziona personaggio –</option>';
-
+    function fillCharacterSelect(selectEl, characters, ids) {
+      if (!selectEl) return;
+      selectEl.innerHTML = '<option value="">– Seleziona personaggio –</option>';
       ids.forEach((id) => {
         const option = document.createElement("option");
         const name = characters[id]?.characterName || id;
         option.value = id;
         option.textContent = name;
-        characterList.appendChild(option);
+        selectEl.appendChild(option);
       });
+    }
 
-      // dropdown nella start screen (se presente)
-      if (startCharacterList) {
-        startCharacterList.innerHTML = '<option value="">– Seleziona personaggio –</option>';
-        ids.forEach((id) => {
-          const option = document.createElement("option");
-          const name = characters[id]?.characterName || id;
-          option.value = id;
-          option.textContent = name;
-          startCharacterList.appendChild(option);
-        });
-      }
+    function refreshCharacterList() {
+      const characters = loadAllCharacters();
+      const ids = Object.keys(characters).sort();
+
+      fillCharacterSelect(characterList, characters, ids);
+      fillCharacterSelect(startCharacterList, characters, ids);
     }
 
     function loadCharacterById(id) {
@@ -1479,7 +1788,6 @@
         showSheetScreen();      // passa alla schermata della scheda
       });
     }
-
 
     btnBackToStart.addEventListener("click", () => {
       showStartScreen();
