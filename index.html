@@ -129,7 +129,7 @@
     }
 
     /* --- Titolo libro magico --- */
-    h1 {
+    .global-fix h1 {
       font-family: "Cinzel Decorative", "EB Garamond", serif;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -141,8 +141,8 @@
       font-size: 1.4rem;
     }
 
-    h1::before,
-    h1::after {
+    .global-fix h1::before,
+    .global-fix h1::after {
       content: "✶";
       font-size: 0.8rem;
       color: var(--arcane-accent-soft);
@@ -157,7 +157,7 @@
     }
 
     /* --- Sezioni (Trama, Trionfi, ecc.) con linee mistiche --- */
-    h3 {
+    .global-fix h3 {
       font-size: 0.75rem;
       letter-spacing: 0.22em;
       text-transform: uppercase;
@@ -168,8 +168,8 @@
       margin-bottom: 0.75rem;
     }
 
-    h3::before,
-    h3::after {
+    .global-fix h3::before,
+    .global-fix h3::after {
       content: "";
       flex: 1;
       height: 1px;
@@ -182,21 +182,21 @@
       opacity: 0.7;
     }
 
-    h3::before {
+    .global-fix h3::before {
       max-width: 1.75rem;
     }
 
-    h3::after {
+    .global-fix h3::after {
       max-width: 2.5rem;
     }
 
     /* Mantieni testo della sezione centrato all'interno delle linee */
-    h3 span {
+    .global-fix h3 span {
       white-space: nowrap;
     }
 
     /* Etichette input */
-    label {
+    .global-fix label {
       font-size: 0.7rem;
       letter-spacing: 0.19em;
       text-transform: uppercase;
@@ -204,9 +204,9 @@
     }
 
     /* --- Campi di input "normali" (default) --- */
-    input:not([type="checkbox"]):not([type="file"]),
-    textarea,
-    select {
+    .global-fix input:not([type="checkbox"]):not([type="file"]),
+    .global-fix textarea,
+    .global-fix select {
       border-radius: 0.9rem;
       background: radial-gradient(circle at top, rgba(255, 255, 255, 0.04), rgba(8, 9, 22, 0.96));
       border: 1px solid rgba(88, 105, 140, 0.9);
@@ -221,30 +221,30 @@
         background 160ms ease;
     }
 
-    input:not([type="checkbox"]):not([type="file"]) {
+    .global-fix input:not([type="checkbox"]):not([type="file"]) {
       padding: 0.45rem 0.7rem;
     }
 
-    textarea {
-      padding: 0.5rem 0.75rem;
+    .global-fix textarea {
+      padding: 0.5rem 0.75rem!important;
     }
 
-    select {
+    .global-fix select {
       padding: 0.45rem 0.7rem;
       background:
         radial-gradient(circle at top, rgba(255, 255, 255, 0.04), rgba(8, 9, 22, 0.96));
     }
 
-    input::placeholder,
-    textarea::placeholder {
+    .global-fix input::placeholder,
+    .global-fix textarea::placeholder {
       color: rgba(201, 192, 176, 0.6);
     }
 
     /* focus generico per tutti gli input "normali",
       orb e gem ereditano questo */
-    input:not([type="checkbox"]):not([type="file"]):focus-visible,
-    textarea:focus-visible,
-    select:focus-visible {
+    .global-fix input:not([type="checkbox"]):not([type="file"]):focus-visible,
+    .global-fix textarea:focus-visible,
+    .global-fix select:focus-visible {
       outline: none;
       box-shadow:
         0 0 0 1px rgba(8, 14, 40, 1),
@@ -254,7 +254,7 @@
     }
 
     /* --- Checkbox con runa luminosa --- */
-    input[type="checkbox"] {
+    .global-fix input[type="checkbox"] {
       width: 1rem;
       height: 1rem;
       border-radius: 0.4rem;
@@ -266,14 +266,14 @@
         0 0 12px rgba(0, 0, 0, 0.7);
     }
 
-    input[type="checkbox"]:checked {
+    .global-fix input[type="checkbox"]:checked {
       box-shadow:
         0 0 0 1px rgba(0, 0, 0, 0.9),
         0 0 14px rgba(125, 220, 255, 0.85);
     }
 
     /* --- Pulsanti: stile generale + varianti primarie --- */
-    button {
+    .global-fix button {
       position: relative;
       display: inline-flex;
       align-items: center;
@@ -299,7 +299,7 @@
         color 150ms ease;
     }
 
-    button:hover {
+    .global-fix button:hover {
       transform: translateY(-1px);
       box-shadow:
         0 0 0 1px rgba(0, 0, 0, 0.9),
@@ -308,7 +308,7 @@
         radial-gradient(circle at top, rgba(255, 255, 255, 0.12), rgba(12, 14, 34, 0.98));
     }
 
-    button:disabled {
+    .global-fix button:disabled {
       opacity: 0.4;
       cursor: not-allowed;
       box-shadow:
@@ -336,8 +336,13 @@
         radial-gradient(circle at bottom, rgba(252, 215, 142, 0.98), rgba(102, 60, 4, 0.95));
     }
 
+    #btnBackToStart {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.75rem;
+    }
+
     /* Tab Discipline un po' più "pillola magica" */
-    .discipline-tab {
+    .global-fix .discipline-tab {
       border-radius: 999px;
       border-color: rgba(125, 220, 255, 0.55);
       background:
@@ -349,14 +354,14 @@
       letter-spacing: 0.16em;
     }
 
-    .discipline-tab:hover {
+    .global-fix .discipline-tab:hover {
       border-color: rgba(125, 220, 255, 0.9);
       background:
         radial-gradient(circle at top, rgba(125, 220, 255, 0.18), rgba(6, 10, 30, 0.98));
     }
 
     /* --- Stat principali: input speciali a forma di "orb" --- */
-    .stat-orb {
+    .global-fix .stat-orb {
       width: 3.1rem;
       text-align: center;
       border-radius: 999px;
@@ -374,7 +379,7 @@
       color: var(--arcane-text-main);
     }
 
-    .stat-orb::placeholder {
+    .global-fix .stat-orb::placeholder {
       color: rgba(242, 232, 210, 0.6);
     }
 
@@ -387,7 +392,7 @@
     }
 
     /* Riduzione leggerissima solo per le 12 statistiche principali */
-    .main-stat-input {
+    .global-fix .main-stat-input {
       width: 3.2rem;       /* = tra w-14 e w-16 → perfetto per mobile */
       /* font-size: 0.85rem;   un hair smaller */
       /* padding-left: 0.25rem;
@@ -396,7 +401,7 @@
   </style>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen global-fix">
   <div class="arcane-shell max-w-7xl xl:max-w-[1500px] mx-auto px-3 md:px-6 py-6">
     <!-- Header app -->
     <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6 relative z-10">
@@ -418,7 +423,7 @@
     <!-- Start screen -->
     <section id="startScreen" class="mt-10 relative z-10">
       <div class="grid gap-6 sm:grid-cols-2">
-        <button id="btnStartNew" class="px-5 py-6 text-left">
+        <button id="btnStartNew" class="text-left">
           <div class="flex flex-col gap-2">
             <p class="text-base">Crea un nuovo personaggio</p>
             <p class="text-sm text-slate-300">
@@ -427,7 +432,7 @@
           </div>
         </button>
 
-        <button id="btnStartLoad" class="px-5 py-6 text-left">
+        <button id="btnStartLoad" class="text-left">
           <div class="flex flex-col gap-2">
             <p class="text-base">Carica un personaggio esistente</p>
             <p class="text-sm text-slate-300">
@@ -457,7 +462,7 @@
       <!-- Top toolbar -->
       <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4 mt-8">
         <div class="flex flex-wrap items-center gap-2">
-          <button id="btnBackToStart" class="text-[0.7rem] px-3 py-1">
+          <button id="btnBackToStart" class="text-[0.7rem]">
             ← Torna alla scelta iniziale
           </button>
           <span class="arcane-toolbar-note">
@@ -579,7 +584,7 @@
                 <span class="text-xs tracking-[0.2em] uppercase text-[var(--arcane-text-muted)]">
                   Segreto
                 </span>
-                <button type="button" id="secretToggle" class="px-2 py-1 text-[11px]">
+                <button type="button" id="secretToggle" class="text-[11px]">
                   <span id="secretIcon">▾</span>
                 </button>
               </div>
