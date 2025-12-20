@@ -360,10 +360,31 @@
       letter-spacing: 0.16em;
     }
 
-    .global-fix .discipline-tab:hover {
-      border-color: rgba(125, 220, 255, 0.9);
+    /* --- Discipline tabs: active (selected + lifted) --- */
+    .global-fix .discipline-tab.is-active {
+      transform: translateY(-2px);
+      border-color: rgba(240, 196, 106, 0.9); /* arcane gold */
       background:
-        radial-gradient(circle at top, rgba(125, 220, 255, 0.18), rgba(6, 10, 30, 0.98));
+        linear-gradient(135deg, rgba(240, 196, 106, 0.22), rgba(240, 196, 106, 0.06)),
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.12), rgba(6, 10, 30, 0.98));
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.9),
+        0 16px 30px rgba(0, 0, 0, 0.9),
+        0 0 18px rgba(240, 196, 106, 0.22);
+    }
+
+    /* Keep hover subtle when already active */
+    .global-fix .discipline-tab.is-active:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Apply hover effects only on devices that actually have hover (desktop) */
+    @media (hover: hover) and (pointer: fine) {
+      .global-fix .discipline-tab:hover {
+        border-color: rgba(125, 220, 255, 0.9);
+        background:
+          radial-gradient(circle at top, rgba(125, 220, 255, 0.18), rgba(6, 10, 30, 0.98));
+      }
     }
 
     /* --- Stat principali: input speciali a forma di "orb" --- */
@@ -399,11 +420,74 @@
 
     /* Riduzione leggerissima solo per le 12 statistiche principali */
     .global-fix .main-stat-input {
-      width: 3.2rem;       /* = tra w-14 e w-16 → perfetto per mobile */
+      width: 2.8rem;       /* = tra w-14 e w-16 → perfetto per mobile */
       /* font-size: 0.85rem;   un hair smaller */
       /* padding-left: 0.25rem;
       padding-right: 0.25rem; */
     }
+
+    /* -----------------------------
+      Arcane Select (dropdown)
+      - Styles the closed control consistently
+      - Improves open menu colors where supported
+    ------------------------------ */
+    .global-fix select.arcane-select {
+      -webkit-appearance: none;
+      appearance: none;
+
+      padding-right: 2.35rem; /* room for the custom arrow */
+      cursor: pointer;
+
+      border-radius: 0.9rem;
+      background:
+        radial-gradient(circle at top, rgba(255, 255, 255, 0.04), rgba(8, 9, 22, 0.96));
+      border: 1px solid rgba(88, 105, 140, 0.9);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.85),
+        0 0 18px rgba(0, 0, 0, 0.65);
+      color: var(--arcane-text-main);
+
+      /* Custom arrow (SVG) */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='rgba(240,196,106,0.85)' d='M5.6 7.6a1 1 0 0 1 1.4 0L10 10.6l3-3a1 1 0 1 1 1.4 1.4l-3.7 3.7a1 1 0 0 1-1.4 0L5.6 9a1 1 0 0 1 0-1.4Z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1.05rem;
+    }
+
+    .global-fix select.arcane-select:hover {
+      border-color: rgba(125, 220, 255, 0.75);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.9),
+        0 0 0 2px rgba(125, 220, 255, 0.25),
+        0 0 18px rgba(0, 0, 0, 0.65);
+    }
+
+    /* Keep your existing focus-visible behavior; this just ensures consistency */
+    .global-fix select.arcane-select:focus-visible {
+      outline: none;
+    }
+
+    /* Remove the default arrow in old Edge/IE */
+    .global-fix select.arcane-select::-ms-expand {
+      display: none;
+    }
+
+    /* Dropdown list (open menu) — limited support across browsers, but helps a lot on Chrome/Edge */
+    .global-fix select.arcane-select option {
+      background: #0f1020; /* close to --arcane-page */
+      color: var(--arcane-text-main);
+    }
+
+    /* Selected option styling (works on many Chromium browsers) */
+    .global-fix select.arcane-select option:checked {
+      background: #1b102f; /* close to --arcane-bg-accent */
+      color: var(--arcane-accent);
+    }
+
+
+
+
   </style>
 </head>
 
@@ -453,7 +537,7 @@
         <label for="startCharacterList" class="block mb-1">
           Personaggi salvati nel browser
         </label>
-        <select id="startCharacterList" class="w-full sm:w-80 text-sm">
+        <select id="startCharacterList" class="arcane-select w-full sm:w-80 text-sm">
           <option value="">– Seleziona personaggio –</option>
         </select>
       </div>
@@ -477,7 +561,7 @@
         </div>
 
         <div class="flex flex-wrap gap-2 items-center">
-          <select id="characterList" class="text-sm min-w-[180px]">
+          <select id="characterList" class="arcane-select text-sm min-w-[180px]">
             <option value="">– Seleziona personaggio –</option>
           </select>
           <button id="btnLoadSelected" class="text-xs sm:text-sm">
@@ -1573,26 +1657,24 @@
     }
 
     // -----------------------------
-    // Discipline accordion
+    // Discipline accordion (toggle active tab state)
     // -----------------------------
     const disciplineTabs = document.querySelectorAll(".discipline-tab");
-    const disciplinePanels = document.querySelectorAll("[data-discipline-panel]");
 
     disciplineTabs.forEach((btn) => {
       btn.addEventListener("click", () => {
         const targetId = btn.getAttribute("data-discipline-target");
         const panel = document.getElementById(targetId);
-        if (!panel) {
-          return;
-        }
+        if (!panel) return;
 
         const isHidden = panel.classList.contains("hidden");
+
         if (isHidden) {
           panel.classList.remove("hidden");
-          btn.classList.add("bg-slate-800");
+          btn.classList.add("is-active");
         } else {
           panel.classList.add("hidden");
-          btn.classList.remove("bg-slate-800");
+          btn.classList.remove("is-active");
         }
       });
     });
